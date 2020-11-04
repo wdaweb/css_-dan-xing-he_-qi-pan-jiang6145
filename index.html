@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>象棋</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        list-style: none;
+      }
+
+      html,
+      body {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: '標楷體';
+      }
+
+      .container {
+        display: flex;
+        align-items: center;
+      }
+
+      .checkerboard-wrap {
+        padding: 50px 60px;
+        border: 1px solid #000;
+        position: relative;
+      }
+
+      .checkerboard {
+        border-collapse: collapse;
+      }
+
+      td {
+        width: 75px;
+        height: 75px;
+        border: 1px solid #000;
+      }
+
+      .slash-right {
+        background: linear-gradient(45deg, transparent 49.5%, #000 49.5%, transparent 50.5%);
+        color: transparent;
+      }
+
+      .slash-left {
+        background: linear-gradient(-45deg, transparent 49.5%, #000 49.5%, transparent 50.5%);
+        color: transparent;
+      }
+
+      .chess-wrap {
+        width: 100%;
+        height: 100%;
+        padding: 23px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: flex;
+        flex-wrap: wrap;
+        align-content: space-between;
+      }
+
+      .item {
+        height: 225px;
+        width: 75px;
+        display: flex;
+        justify-content: center;
+      }
+
+      .item:nth-child(13),
+      .item:nth-child(20) {
+        margin-left: 75px;
+        margin-right: 75px;
+      }
+
+      .item:nth-child(11),
+      .item:nth-child(15) {
+        margin-top: -75px;
+      }
+
+      .item:nth-child(18),
+      .item:nth-child(22) {
+        padding-top: 75px;
+      }
+
+      .black-chess,
+      .red-chess {
+        display: inline-block;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        border: 1px solid #000;
+        background-color: #fff;
+        text-align: center;
+        line-height: 56px;
+        font-size: 40px;
+      }
+
+      .black-chess {
+        color: black;
+      }
+
+      .red-chess {
+        color: red;
+      }
+
+      .text-center {
+        height: 100%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        font-size: 46px;
+      }
+
+      .text-left,
+      .text-right {
+        writing-mode: vertical-lr;
+        font-size: 40px;
+      }
+
+      .text-left {
+        margin-right: 40px;
+      }
+
+      .text-right {
+        margin-left: 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="text-left">棋盤裡，車無輪，馬無韁，叫聲將軍堤防堤防</div>
+      <div class="checkerboard-wrap">
+        <table class="checkerboard">
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="slash-right"></td>
+            <td class="slash-left"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="slash-left"></td>
+            <td class="slash-right"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td colspan="8">
+              <div class="text-center">
+                <span>楚河</span>
+                <span>漢界</span>
+              </div>
+            </td>
+            <!-- <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td> -->
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="slash-right"></td>
+            <td class="slash-left"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="slash-left"></td>
+            <td class="slash-right"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </table>
+        <ul class="chess-wrap">
+          <!-- 黑棋 -->
+          <li class="item"><span class="black-chess">車</span></li>
+          <li class="item"><span class="black-chess">馬</span></li>
+          <li class="item"><span class="black-chess">象</span></li>
+          <li class="item"><span class="black-chess">士</span></li>
+          <li class="item"><span class="black-chess">將</span></li>
+          <li class="item"><span class="black-chess">士</span></li>
+          <li class="item"><span class="black-chess">象</span></li>
+          <li class="item"><span class="black-chess">馬</span></li>
+          <li class="item"><span class="black-chess">車</span></li>
+          <li class="item"><span class="black-chess">卒</span></li>
+          <li class="item"><span class="black-chess">包</span></li>
+          <li class="item"><span class="black-chess">卒</span></li>
+          <li class="item"><span class="black-chess">卒</span></li>
+          <li class="item"><span class="black-chess">卒</span></li>
+          <li class="item"><span class="black-chess">包</span></li>
+          <li class="item"><span class="black-chess">卒</span></li>
+          <!-- 紅棋 -->
+          <li class="item"><span class="red-chess">兵</span></li>
+          <li class="item"><span class="red-chess">炮</span></li>
+          <li class="item"><span class="red-chess">兵</span></li>
+          <li class="item"><span class="red-chess">兵</span></li>
+          <li class="item"><span class="red-chess">兵</span></li>
+          <li class="item"><span class="red-chess">炮</span></li>
+          <li class="item"><span class="red-chess">兵</span></li>
+          <li class="item"><span class="red-chess">俥</span></li>
+          <li class="item"><span class="red-chess">傌</span></li>
+          <li class="item"><span class="red-chess">相</span></li>
+          <li class="item"><span class="red-chess">仕</span></li>
+          <li class="item"><span class="red-chess">帥</span></li>
+          <li class="item"><span class="red-chess">仕</span></li>
+          <li class="item"><span class="red-chess">相</span></li>
+          <li class="item"><span class="red-chess">傌</span></li>
+          <li class="item"><span class="red-chess">俥</span></li>
+        </ul>
+      </div>
+      <div class="text-right">圖畫裡，龍不吟，虎不嘯，小小書僮可笑可笑</div>
+    </div>
+  </body>
+</html>
